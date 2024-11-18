@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';  // Add this import
+import { View, StyleSheet } from 'react-native';  
 
 export default function Recordings() {
   return (
@@ -9,7 +9,7 @@ export default function Recordings() {
   );
 }
 
-const styles = StyleSheet.create({  // Add styles definition
+const styles = StyleSheet.create({  
   mainContainer: {
     flex: 1,
     backgroundColor: '#fff',
