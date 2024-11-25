@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 // Initialize Auth and export it
-export const auth = getAuth(app);  // Add this line
+export const auth = getAuth(app);  
 
-// If you need to export analytics or app elsewhere
+
 export { analytics, app };
