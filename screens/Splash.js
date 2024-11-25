@@ -1,34 +1,38 @@
+import { StyleSheet, View, Image } from 'react-native';
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import useAuth from '../hooks/useAuth';
 
+export default function Splash({ navigation }) {
+  const { user } = useAuth();
 
-function Splash({ navigation }) {
   useEffect(() => {
-    // Set a timer to replace the splash screen with the home screen after 5 seconds
     const timer = setTimeout(() => {
-      navigation.replace('Home'); 
-    }, 5000);
+      if (user) {
+        navigation.replace('Home');
+      } else {
+        navigation.replace('Login');
+      }
+    }, 3000); // 3 seconds splash screen
 
-    // Clean up the timer when the component unmounts
-    return () => clearTimeout(timer); 
-  }, [navigation]);
+    return () => clearTimeout(timer);
+  }, [user]);
 
   return (
-    <View style={styles.mainSplash}>
-      <Image source={require('../assets/logo.png')} style={{ width: 200, height: 200 }} />
+    <View style={styles.container}>
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
     </View>
   );
 }
 
-export default Splash;
-
 const styles = StyleSheet.create({
-  mainSplash: {
+  container: {
     flex: 1,
+    backgroundColor: '#2D2D30',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
-
   },
-
+  logo: {
+    width: 200,
+    height: 200,
+  },
 });

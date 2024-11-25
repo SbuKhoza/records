@@ -291,6 +291,8 @@ export default function VoiceRecorder() {
     <View style={styles.container}>
       <Text style={styles.header}>QK Voice Recorder</Text>
 
+      
+
       <TextInput
         style={styles.searchbar}
         placeholder="Search..." 

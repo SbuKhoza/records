@@ -1,30 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { StyleSheet, Text, View } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home';
+import Login from './screens/Login';
+import Signup from './screens/Signup';
 import Splash from './screens/Splash';
-import Recordings from './screens/Recordings';
+import Profile from './screens/Profile.js';
+import CustomHeader from './components/CustomHeader';
+import { AuthProvider } from './context/AuthContext.js';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Splash" component={Splash} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Recordings" component={Recordings} />
-      </Stack.Navigator>
+      <AuthProvider>
+        <Stack.Navigator 
+          initialRouteName="Splash"
+          screenOptions={({ route }) => ({
+            headerShown: !['Splash', 'Login', 'Signup'].includes(route.name),
+            header: () => !['Splash', 'Login', 'Signup'].includes(route.name) ? <CustomHeader /> : null,
+            animation: 'slide_from_right'
+          })}
+        >
+          <Stack.Screen name="Splash" component={Splash} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Profile" component={Profile} />
+        </Stack.Navigator>
+      </AuthProvider>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
